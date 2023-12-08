@@ -1,13 +1,11 @@
 'use client';
 
 import { useBoardStore } from '@/store/BoardStore';
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import Column from './Column';
 
-interface BoardProps {}
-
-const Board: FC<BoardProps> = ({}) => {
+const Board = () => {
   const { board, getBoard, setBoardState, updateTodo } = useBoardStore(
     state => state
   );

@@ -2,12 +2,10 @@
 import { useBoardStore } from '@/store/BoardStore';
 import { useModalStore } from '@/store/ModalStore';
 import { Dialog, Transition } from '@headlessui/react';
-import { FC, Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
-interface ModalProps {}
-
-const Modal: FC<ModalProps> = ({}) => {
+const Modal = () => {
   const { isOpen, closeModal } = useModalStore(state => state);
   const { setNewTaskText } = useBoardStore(state => state);
   const [inputText, setInputText] = useState<string>('');
