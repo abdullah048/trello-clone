@@ -1,15 +1,26 @@
 'use client';
 
+import { useBoardStore } from '@/store/BoardStore';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import Avatar from 'react-avatar';
+import { useDebounce } from 'use-debounce';
 
 const Header = () => {
+  const { setSearchString, searchString } = useBoardStore(state => state);
+  const [searchText, setSearchText] = useState<string>('');
+  const [value] = useDebounce(searchText, 500);
+
+  useEffect(() => {
+    setSearchString(value);
+  }, [value]);
   return (
     <header>
       <div className='flex flex-col md:flex-row items-center p-5 md:px-2 md:py-1 bg-gray-500/10'>
         <div className='absolute top-0 left-0 w-full h-96 bg-gradient-to-br from-pink-400 to-[#0055D1] rounded-md filter blur-3xl opacity-50 -z-10' />
         <Image
+          priority
           src='https://links.papareact.com/c2cdd5'
           alt='Trello logo'
           width={300}
@@ -23,6 +34,8 @@ const Header = () => {
               type='text'
               placeholder='Search'
               className='flex-1 outline-none text-gray-400'
+              value={searchText}
+              onChange={e => setSearchText(e.target.value)}
             />
             <button hidden type='submit'>
               Search
