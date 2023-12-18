@@ -20,8 +20,14 @@ const idToColumnHeading: {
 };
 
 const Column: FC<ColumnProps> = ({ id, todos, index }) => {
-  const { searchString } = useBoardStore(state => state);
+  const { searchString, setNewTaskType } = useBoardStore(state => state);
   const { openModal } = useModalStore(state => state);
+
+  const handleAddClick = () => {
+    setNewTaskType(id);
+    openModal();
+  };
+
   return (
     <Draggable draggableId={id} index={index}>
       {provided => (
@@ -78,7 +84,7 @@ const Column: FC<ColumnProps> = ({ id, todos, index }) => {
                   <div className='flex items-end justify-end p-2'>
                     <button
                       className='text-green-600 hover:text-green-700'
-                      onClick={openModal}>
+                      onClick={handleAddClick}>
                       <PlusCircleIcon className='h-10 w-10' />
                     </button>
                   </div>

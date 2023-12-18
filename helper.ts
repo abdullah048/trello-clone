@@ -1,4 +1,4 @@
-import { databases } from './appwrite';
+import { ID, databases, storage } from './appwrite';
 
 export const getGroupedTodos = async () => {
   const data = await databases.listDocuments(
@@ -47,4 +47,19 @@ export const getGroupedTodos = async () => {
   };
 
   return board;
+};
+
+export const uploadImage = async (file: File) => {
+  if (!file) return;
+  const uploadedFile = await storage.createFile(
+    process.env.NEXT_PUBLIC_BUCKET_ID!,
+    ID.unique(),
+    file
+  );
+  return uploadedFile;
+};
+
+export const getUrl = async (image: Image) => {
+  const url = storage.getFilePreview(image.bucketId, image.fileId);
+  return url;
 };

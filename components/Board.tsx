@@ -9,6 +9,7 @@ const Board = () => {
   const { board, getBoard, setBoardState, updateTodo } = useBoardStore(
     state => state
   );
+
   useEffect(() => {
     getBoard();
   }, []);
